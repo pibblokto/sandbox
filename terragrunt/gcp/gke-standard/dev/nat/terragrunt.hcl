@@ -13,8 +13,8 @@ include "root" {
     merge_strategy = "deep"
 }
 
-include "vpc" {
-    path           = "../dependencies/vpc.hcl"
+include "network" {
+    path           = "../dependencies/network.hcl"
     expose         = true
     merge_strategy = "deep"
 }
@@ -30,7 +30,7 @@ inputs = {
     region        = local.location
     router        = "${local.environment}-gke-standard-router"
     name          = "${local.environment}-gke-standard-nat"
-    network       = dependency.vpc.outputs.network_name
+    network       = dependency.network.outputs.network_name
     nat_ips       = dependency.nat_external_ip.outputs.self_links
 
     source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
@@ -38,7 +38,7 @@ inputs = {
 
 dependencies = {
     paths = [
-        "../vpc",
+        "../network",
         "../nat_external_ip"
     ]
 }

@@ -1,10 +1,9 @@
 locals {
   environment = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals.environment
-  location    = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals.location
 }
 
 terraform {
-  source = "tfr:///terraform-google-modules/network/google//modules/subnets?version=9.0.0"
+  source = "tfr:///terraform-google-modules/network/google//modules/vpc?version=9.0.0"
 }
 
 include "root" {
@@ -13,14 +12,21 @@ include "root" {
     merge_strategy = "deep"
 }
 
-include "vpc" {
-    path           = "../dependencies/vpc.hcl"
-    expose         = true
-    merge_strategy = "deep"
-}
-
 inputs = {
-    network_name = dependency.vpc.outputs.network_name
+    network_name = "gke-standard-vpc-${local.environment}"
+    description  = "vpn network for GKE Standard cluster"
+
+    auto_create_subnetworks                = false
+    delete_default_internet_gateway_routes = false
+    
+    enable_ipv6_ula     = false
+    internal_ipv6_range = null
+    mtu                 = 1460
+
+    network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL"
+
+    routing_mode    = "GLOBAL"
+    shared_vpc_host = false
 
     subnets = [
         {
@@ -62,10 +68,4 @@ inputs = {
             },
         ]
     }
-}
-
-dependencies = {
-    paths = [
-        "../vpc"
-    ]
 }
