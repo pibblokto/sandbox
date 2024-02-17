@@ -1,5 +1,5 @@
 locals {
     project_id     = "piblokto"
-    location    = ""
-    environment = "dev"
+    location       = "europe-west3"
+    environment    = "dev"
 }
