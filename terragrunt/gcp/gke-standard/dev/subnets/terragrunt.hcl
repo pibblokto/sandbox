@@ -20,4 +20,45 @@ include "vpc" {
 
 inputs = {
     network_name = dependency.vpc.outputs.network_name
+
+    subnets = [
+        {
+            subnet_name           = "${local.environment}-subnet-01"
+            subnet_ip             = "10.1.0.0/24"
+            subnet_region         = "us-west1"
+        },
+        {
+            subnet_name           = "${local.environment}-subnet-02"
+            subnet_ip             = "10.1.1.0/24"
+            subnet_region         = "us-west1"
+        },
+        {
+            subnet_name           = "${local.environment}-subnet-03"
+            subnet_ip             = "10.1.2.0/24"
+            subnet_region         = "us-west1"
+        }
+    ]
+
+    secondary_ranges = {
+        "${local.environment}-subnet-01" = [
+            {
+                range_name    = "${local.environment}-subnet-01-secondary-01"
+                ip_cidr_range = "10.2.0.0/16"
+            },
+        ]
+        
+        "${local.environment}-subnet-02" = [
+            {
+                range_name    = "${local.environment}-subnet-01-secondary-01"
+                ip_cidr_range = "10.3.0.0/16"
+            },
+        ]
+
+        "${local.environment}-subnet-03" = [
+            {
+                range_name    = "${local.environment}-subnet-01-secondary-01"
+                ip_cidr_range = "10.3.0.0/16"
+            },
+        ]
+    }
 }
