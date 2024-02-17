@@ -32,6 +32,8 @@ inputs = {
     name          = "${local.environment}-gke-standard-nat"
     network       = dependency.vpc.outputs.network_name
     nat_ips       = dependency.nat_external_ip.outputs.self_links
+
+    source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 }
 
 dependencies = {
