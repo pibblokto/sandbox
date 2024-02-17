@@ -63,3 +63,9 @@ inputs = {
         ]
     }
 }
+
+dependencies = {
+    paths = [
+        "../vpc"
+    ]
+}

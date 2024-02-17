@@ -33,3 +33,10 @@ inputs = {
     network       = dependency.vpc.outputs.network_name
     nat_ips       = dependency.nat_external_ip.outputs.self_links
 }
+
+dependencies = {
+    paths = [
+        "../vpc",
+        "../nat_external_ip"
+    ]
+}
