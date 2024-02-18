@@ -48,6 +48,18 @@ inputs = {
     remove_default_node_pool = true
     create_service_account   = true
 
+    cluster_autoscaling = {
+      enabled             = false
+      autoscaling_profile = "OPTIMIZE_UTILIZATION"
+      max_cpu_cores       = 0
+      min_cpu_cores       = 0
+      max_memory_gb       = 0
+      min_memory_gb       = 0
+      gpu_resources       = []
+      auto_repair         = true
+      auto_upgrade        = true
+    }
+
     node_pools = [
     {
       name            = "primary-node-pool"
