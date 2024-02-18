@@ -1,9 +1,10 @@
 locals {
   environment = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals.environment
+  location    = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals.location
 }
 
 terraform {
-  source = "tfr:///terraform-google-modules/network/google//modules/vpc?version=9.0.0"
+  source = "tfr:///terraform-google-modules/network/google?version=9.0.0"
 }
 
 include "root" {

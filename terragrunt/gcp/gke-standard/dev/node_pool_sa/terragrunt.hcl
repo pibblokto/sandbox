@@ -3,7 +3,7 @@ locals {
 }
 
 terraform {
-  source = "tfr:///terraform-google-modules/address/google?version=3.2.0"
+  source = "tfr:///terraform-google-modules/service-accounts/google?version=4.2.2"
 }
 
 include "root" {

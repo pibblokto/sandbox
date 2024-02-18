@@ -20,12 +20,13 @@ include "network" {
 }
 
 include "node_pool_sa" {
-    path           = "../node_pool_sa"
+    path           = "../dependencies/node_pool_sa.hcl"
     expose         = true
     merge_strategy = "deep"
 }
 
 inputs = {
+    name               = "${local.environment}-gke-standard-cluster"
     regional           = true
     region             = local.location
     kubernetes_version = "latest"
@@ -74,7 +75,7 @@ inputs = {
   }
 }
 
-dependencies = {
+dependencies {
     paths = [
         "../network",
         "../node_pool_sa"
