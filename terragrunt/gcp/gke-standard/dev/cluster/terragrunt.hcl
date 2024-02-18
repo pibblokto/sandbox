@@ -1,6 +1,10 @@
 locals {
   environment = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals.environment
   location    = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals.location
+  
+  total_min_pool_size    = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals.total_min_pool_size
+  total_max_pool_size    = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals.total_max_pool_size
+  primary_pool_disk_size = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals.primary_pool_disk_size
 }
 
 terraform {
@@ -64,9 +68,9 @@ inputs = {
     {
       name            = "primary-node-pool"
       machine_type    = "e2-standard-2"
-      total_min_count = 1
-      total_max_count = 3
-      disk_size_gb    = 75
+      total_min_count = local.total_min_pool_size
+      total_max_count = local.total_max_pool_size
+      disk_size_gb    = local.primary_pool_disk_size
       spot            = false
       autoscaling     = true
       auto_upgrade    = true
