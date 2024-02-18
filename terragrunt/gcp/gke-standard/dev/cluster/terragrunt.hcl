@@ -38,6 +38,7 @@ inputs = {
     network                 = dependency.network.outputs.network_name
     subnetwork              = dependency.network.outputs.subnets_names[0]
     enable_private_endpoint = false
+    enable_private_nodes    = true
     ip_range_pods           = "${local.environment}-gke-standard-pod-range"
     ip_range_services       = "${local.environment}-gke-standard-service-range"
 
