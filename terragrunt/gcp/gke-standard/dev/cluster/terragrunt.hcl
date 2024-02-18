@@ -46,8 +46,9 @@ inputs = {
     network_policy              = true
     filestore_csi_driver        = true
     horizontal_pod_autoscaling  = true
-    logging_service             = "logging.googleapis.com/kubernetes"
     deletion_protection         = false
+    logging_service             = "logging.googleapis.com/kubernetes"
+    monitoring_service          = "monitoring.googleapis.com/kubernetes"
 
     initial_node_count       = 0
     remove_default_node_pool = true
