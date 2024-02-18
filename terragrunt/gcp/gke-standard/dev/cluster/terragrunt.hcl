@@ -19,20 +19,62 @@ include "network" {
     merge_strategy = "deep"
 }
 
+include "node_pool_sa" {
+    path           = "../node_pool_sa"
+    expose         = true
+    merge_strategy = "deep"
+}
 
 inputs = {
-    subnetwork    = ""
-    ip_range_pods = ""
-    network       = dependency.network.outputs.network_name
+    regional      = true
+    region        = local.location
 
+    network           = dependency.network.outputs.network_name
+    subnetwork        = dependency.network.outputs.subnets_names[0]
+    ip_range_pods     = "${local.environment}-gke-standard-pod-range"
+    ip_range_services = "${local.environment}-gke-standard-service-range"
+
+    http_load_balancing         = true
+    network_policy              = true
+    filestore_csi_driver        = true
+    horizontal_pod_autoscaling  = true
+    logging_service             = "logging.googleapis.com/kubernetes"
 
     initial_node_count       = 0
     remove_default_node_pool = true
+    create_service_account   = true
+
+    node_pools = [
+    {
+      name            = "primary-node-pool"
+      machine_type    = "e2-standard-2"
+      node_locations  = "${local.location}-a,${local.location}-b"
+      min_count       = 2
+      max_count       = 2
+      disk_size_gb    = 30
+      spot            = false
+      autoscaling     = false
+      auto_upgrade    = true
+      auto_repair     = true
+      service_account = dependency.node_pool_sa.outputs.email
+    },
+  ]
+
+  node_pools_oauth_scopes = {
+    all = [
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+      "https://www.googleapis.com/auth/trace.append",
+      "https://www.googleapis.com/auth/service.management.readonly",
+      "https://www.googleapis.com/auth/devstorage.read_only",
+      "https://www.googleapis.com/auth/servicecontrol",
+    ]
+  }
 }
 
 dependencies = {
     paths = [
-        "../vpc",
-        "../subnets"
+        "../network",
+        "../node_pool_sa"
     ]
 }

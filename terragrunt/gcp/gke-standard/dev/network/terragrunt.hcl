@@ -30,42 +30,22 @@ inputs = {
 
     subnets = [
         {
-            subnet_name           = "${local.environment}-subnet-01"
-            subnet_ip             = "10.1.0.0/24"
-            subnet_region         = local.location
-        },
-        {
-            subnet_name           = "${local.environment}-subnet-02"
-            subnet_ip             = "10.1.1.0/24"
-            subnet_region         = local.location
-        },
-        {
-            subnet_name           = "${local.environment}-subnet-03"
-            subnet_ip             = "10.1.2.0/24"
+            subnet_name           = "${local.environment}-gke-standard-subnet"
+            subnet_ip             = "10.1.0.0/16"
             subnet_region         = local.location
         }
     ]
 
     secondary_ranges = {
-        "${local.environment}-subnet-01" = [
+        "${local.environment}-gke-standard-subnet" = [
             {
-                range_name    = "${local.environment}-subnet-01-secondary-01"
-                ip_cidr_range = "10.2.0.0/16"
+                range_name    = "${local.environment}-gke-standard-pod-range"
+                ip_cidr_range = "10.100.0.0/16"
             },
-        ]
-        
-        "${local.environment}-subnet-02" = [
             {
-                range_name    = "${local.environment}-subnet-02-secondary-01"
-                ip_cidr_range = "10.3.0.0/16"
-            },
-        ]
-
-        "${local.environment}-subnet-03" = [
-            {
-                range_name    = "${local.environment}-subnet-03-secondary-01"
-                ip_cidr_range = "10.3.0.0/16"
-            },
+                range_name    = "${local.environment}-gke-standard-service-range"
+                ip_cidr_range = "10.120.0.0/16"
+            }
         ]
     }
 }
