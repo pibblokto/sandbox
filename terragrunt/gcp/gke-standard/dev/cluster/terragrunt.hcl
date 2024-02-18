@@ -26,19 +26,22 @@ include "node_pool_sa" {
 }
 
 inputs = {
-    regional      = true
-    region        = local.location
+    regional           = true
+    region             = local.location
+    kubernetes_version = "latest"
 
-    network           = dependency.network.outputs.network_name
-    subnetwork        = dependency.network.outputs.subnets_names[0]
-    ip_range_pods     = "${local.environment}-gke-standard-pod-range"
-    ip_range_services = "${local.environment}-gke-standard-service-range"
+    network                 = dependency.network.outputs.network_name
+    subnetwork              = dependency.network.outputs.subnets_names[0]
+    enable_private_endpoint = false
+    ip_range_pods           = "${local.environment}-gke-standard-pod-range"
+    ip_range_services       = "${local.environment}-gke-standard-service-range"
 
     http_load_balancing         = true
     network_policy              = true
     filestore_csi_driver        = true
     horizontal_pod_autoscaling  = true
     logging_service             = "logging.googleapis.com/kubernetes"
+    deletion_protection         = false
 
     initial_node_count       = 0
     remove_default_node_pool = true
@@ -48,12 +51,11 @@ inputs = {
     {
       name            = "primary-node-pool"
       machine_type    = "e2-standard-2"
-      node_locations  = "${local.location}-a,${local.location}-b"
-      min_count       = 2
-      max_count       = 2
-      disk_size_gb    = 30
+      total_min_count = 1
+      total_max_count = 3
+      disk_size_gb    = 75
       spot            = false
-      autoscaling     = false
+      autoscaling     = true
       auto_upgrade    = true
       auto_repair     = true
       service_account = dependency.node_pool_sa.outputs.email

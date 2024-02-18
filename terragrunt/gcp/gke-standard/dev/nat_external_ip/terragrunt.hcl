@@ -15,7 +15,6 @@ include "root" {
 
 inputs = {
     region = local.location
-
     address_type = "EXTERNAL"
     names        = [
         "${local.environment}-gke-standard-nat-address"
