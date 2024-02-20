@@ -1,6 +1,6 @@
 ### **Overview**
 
-This terragrunt code lets you create standard GKE Cluster along with additional resources.
+This terragrunt code lets you create standard GKE cluster along with additional resources.
 
 ### **Before proceeding**
 Make sure you have changed backend bucket in root terragrunt.hcl and specified your project id in *dev/common.hcl*. Also make sure you have created service account with all the necessary permissions and generated service account key. Also don't forget to check if you have enabled Resource Manager and GKE APIs in Google Cloud Platform.
@@ -21,7 +21,7 @@ export GOOGLE_APPLICATION_CREDENTIALS=/terraform/key.json
 cd dev
 ```
 
-Run following commands to initialize terraform modules, check and then apply changes:
+Run the following commands to initialize terraform modules, check and then apply changes:
 
 ```bash
 terragrunt run-all init
