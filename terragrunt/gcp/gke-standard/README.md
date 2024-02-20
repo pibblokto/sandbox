@@ -3,7 +3,7 @@
 This terragrunt code lets you create standard GKE Cluster along with additional resources.
 
 ### **Before proceeding**
-Make sure you have changed backend bucket in root terragrunt.hcl and specified your project id in *dev/common.hcl*. Also make sure you have created service account with all the necessary permissions and generated service account keys. Also don't forget to check if you have enabled Resource Manager and GKE APIs in Google Cloud Platform.
+Make sure you have changed backend bucket in root terragrunt.hcl and specified your project id in *dev/common.hcl*. Also make sure you have created service account with all the necessary permissions and generated service account key. Also don't forget to check if you have enabled Resource Manager and GKE APIs in Google Cloud Platform.
 
 ### **Getting Started**
 
@@ -14,7 +14,7 @@ docker build -t gke-standard -f ./Dockerfile.toolkit .
 docker run -it --name gke-standard gke-standard bash
 ```
 
-Then create */terraform/key.json* and pass the content of service account json key file. Then you can export GOOGLE_APPLICATION_CREDENTIALS environment variable and navigate to *dev/* directory:
+Then create */terraform/key.json* and pass the content of service account json key file. Next export GOOGLE_APPLICATION_CREDENTIALS environment variable and navigate to *dev/* directory:
 
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS=/terraform/key.json
