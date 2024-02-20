@@ -10,29 +10,29 @@ Make sure you have changed backend bucket in root terragrunt.hcl and specified y
 First things first, build toolkit image for quick start. It simply installs all the necessary tools. Then run the container and open bash session:
 
 ```bash
-    docker build -t gke-standard -f ./Dockerfile.toolkit .
-    docker run -it --name gke-standard gke-standard bash
+docker build -t gke-standard -f ./Dockerfile.toolkit .
+docker run -it --name gke-standard gke-standard bash
 ```
 
 Then create */terraform/key.json* and pass the content of service account json key file. Then you can export GOOGLE_APPLICATION_CREDENTIALS environment variable and navigate to *dev/* directory:
 
 ```bash
-    export GOOGLE_APPLICATION_CREDENTIALS=/terraform/key.json
-    cd dev
+export GOOGLE_APPLICATION_CREDENTIALS=/terraform/key.json
+cd dev
 ```
 
 Run following commands to initialize terraform modules, check and then apply changes:
 
 ```bash
-    terragrunt run-all init
-    terragrunt run-all plan
-    terragrunt run-all apply
+terragrunt run-all init
+terragrunt run-all plan
+terragrunt run-all apply
 ```
 
 That's it, your cluster will be created in a few minutes. You can get kubeconfig using *gcloud*:
 
 ```bash
-    gcloud container clusters get-credentials CLUSTER_NAME
+gcloud container clusters get-credentials CLUSTER_NAME
 ```
 
 ### **Additional Resources Created**
