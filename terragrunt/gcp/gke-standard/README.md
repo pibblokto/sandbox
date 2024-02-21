@@ -3,7 +3,7 @@
 This terragrunt code lets you create standard GKE cluster along with additional resources.
 
 ### **Before proceeding**
-Make sure you have changed backend bucket in root terragrunt.hcl and specified your project id in *dev/common.hcl*. Also make sure you have created service account with all the necessary permissions and generated service account key. Also don't forget to check if you have enabled Resource Manager and GKE APIs in Google Cloud Platform.
+Make sure you have changed backend bucket in root terragrunt.hcl and specified your project id in *dev/common.hcl*. Also make sure you have created service account with all the necessary permissions and generated service account key. And don't forget to check if you have enabled Resource Manager and GKE APIs in Google Cloud Platform.
 
 ### **Getting Started**
 
